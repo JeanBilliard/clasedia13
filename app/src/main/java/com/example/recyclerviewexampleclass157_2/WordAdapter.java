@@ -59,7 +59,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
         }
 
         @Override
-        public void onClick(View v) { 
+        public void onClick(View v) {
             int position = getLayoutPosition();
             String seleccionado = mWordList.get(position);
             Toast.makeText(v.getContext(), seleccionado, Toast.LENGTH_SHORT).show();// esto saca una
