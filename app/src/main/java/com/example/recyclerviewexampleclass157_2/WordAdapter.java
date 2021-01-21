@@ -19,9 +19,13 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
     //1. Añadir una representacion de los datos.
     private List<String> mWordList;
 
+    //referencia a la interface que pasa el objeto
+    private InterfacePasarElemnto pasarElemento;//
+
     //8. No olvidar crear el Constructor para pasar el listado de datos al instanciar el adapter
-    public WordAdapter(List<String> mWordList) {
+    public WordAdapter(List<String> mWordList, InterfacePasarElemnto pasarElemento) {
         this.mWordList = mWordList;
+        this.pasarElemento = pasarElemento;
     }
 
     @NonNull
@@ -64,9 +68,13 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
             String seleccionado = mWordList.get(position);
             Toast.makeText(v.getContext(), seleccionado, Toast.LENGTH_SHORT).show();// esto saca una
             //pantallita que muestra la palabra que esta siendo seleccionada
+            pasarElemento.passElemento(seleccionado);//ocupar variable en el onclick tengo acceso al metodo passs elemnt
+            //el que espera un string (seleccionado)
 
         }
     }
-
-
+// interface con un metodo que recibe el elemento y lo pasa donde esta impleemntada la inmterface
+        public interface InterfacePasarElemnto{
+        void passElemento(String item);// este metodo pasa el objeto selecionado
+}
 }

@@ -5,9 +5,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -16,7 +18,7 @@ import com.example.recyclerviewexampleclass157_2.databinding.FragmentFirstBindin
 import java.util.ArrayList;
 import java.util.List;
 
-public class FirstFragment extends Fragment {
+public class FirstFragment extends Fragment implements WordAdapter.InterfacePasarElemnto {
 
     private FragmentFirstBinding mBinding;
     private List<String> dataList = new ArrayList<>();
@@ -33,7 +35,7 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // Instanciamos el adapter y le pasamos el listado de Datos con el metodo setData.
-        WordAdapter adapter = new WordAdapter(setData());
+        WordAdapter adapter = new WordAdapter(setData(),this);
         //Le pasamos el adapter al Recycler View
         mBinding.recyclerView.setAdapter(adapter);
         // Le indicamos al RV como mostrar los elementos, podria GridLayout o StaggeredLayout.
@@ -58,5 +60,13 @@ public class FirstFragment extends Fragment {
             dataList.add("PALABRA  : " + i);
         }
         return dataList;
+    }
+
+    @Override
+    public void passElemento(String item) {
+        Bundle bundle =new Bundle();
+        bundle.putString("item", item);
+        Navigation.findNavController(mBinding.getRoot())
+                .navigate(R.id.action_FirstFragment_to_SecondFragment);//cuando haga click esto me llevara al segundo fragmento
     }
 }
